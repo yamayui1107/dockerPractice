@@ -1,0 +1,15 @@
+# Apacheイメージのベースとして公式のhttpdイメージを使用
+FROM httpd:2.4
+
+# サーバー設定ファイルを追加
+# COPY ./my-httpd.conf /usr/local/apache2/conf/httpd.conf
+
+# ドキュメントルートにコンテンツを追加
+# COPY ./public-html/ /usr/local/apache2/htdocs/
+
+# ポート80を公開
+EXPOSE 80
+
+# Apacheを起動
+CMD ["httpd-foreground"]
+
