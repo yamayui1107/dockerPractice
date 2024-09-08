@@ -1,0 +1,17 @@
+# ベースイメージとして公式のMySQLイメージを使用
+FROM mysql:8.0
+
+# 環境変数を設定
+ENV MYSQL_ROOT_PASSWORD=password
+ENV MYSQL_DATABASE=my_database
+ENV MYSQL_USER=my_user
+ENV MYSQL_PASSWORD=password
+
+# ローカルのdump.sqlをコンテナ内にコピーする
+#COPY ./mysql/dump.sql /docker-entrypoint-initdb.d/
+
+# expose 3306ポート
+EXPOSE 3306
+
+# コンテナ起動時にMySQLサーバーを実行する
+CMD ["mysqld"]

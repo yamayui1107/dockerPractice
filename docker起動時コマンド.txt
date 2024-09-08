@@ -1,0 +1,46 @@
+---apache---
+  #mysqlのimageを作成し、コンテナを起動する
+  docker-compose -f docker-compose_apache.yml up -d --build
+
+  #mysqlのコンテナを起動する
+  docker-compose -f docker-compose_apache.yml up -d
+
+  #mysqlのimageを作成し、コンテナを停止する
+  docker-compose -f docker-compose_apache.yml down
+
+---tomcat---
+  #mysqlのimageを作成し、コンテナを起動する
+  docker-compose -f docker-compose_tomcat.yml up -d --build
+
+  #mysqlのコンテナを起動する
+  docker-compose -f docker-compose_tomcat.yml up -d
+
+  #mysqlのimageを作成し、コンテナを停止する
+  docker-compose -f docker-compose_mysql.yml down
+
+---mysql---
+  #mysqlのimageを作成し、コンテナを起動する
+  docker-compose -f docker-compose_mysql.yml up -d --build
+
+  #mysqlのコンテナを起動する
+  docker-compose -f docker-compose_mysql.yml up -d
+
+  #mysqlのimageを作成し、コンテナを停止する
+  docker-compose -f docker-compose_mysql.yml down
+
+#すべてのimageを作成し、コンテナを起動する
+docker-compose -f docker-compose_all.yml up -d --build
+
+
+
+
+----dockerfile単体で扱いたい場合（多分使わなくてOK）----
+#image作成
+docker build -t my-apache-app -f dockerfile_apache .
+docker build -t my-tomcat-app -f dockerfile_tomcat .
+docker build -t my-mysql-app -f dockerfile_mysql .
+
+#コンテナ起動
+docker run -d -p 80:80 --name apache_container my-apache-app
+docker run -d -p 8009:8009 --name tomcat_container my-tomcat-app
+docker run --name mysql-container -v ./mysql/volume:/var/lib/mysql -v ./mysql/dump.sql:/docker-entrypoint-initdb.d/dump.sql -p 3306:3306 -d my-mysql-app

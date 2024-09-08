@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  apache:
+    build:
+      context: .
+      dockerfile: dockerfile_apache
+    container_name: apache_container
+    ports:
+      - "80:80"
+    volumes:
+      - ./apache/httpd_local.conf:/usr/local/apache2/conf/httpd.conf
+
+  tomcat:
+    build:
+      context: .
+      dockerfile: dockerfile_tomcat
+    container_name: tomcat_container
+    ports:
+      - "8009:8009"
+    volumes:
+      - ./tomcat/server_local.xml:/usr/local/tomcat/conf/server.xml
+      - ./tomcat/application/HelloWorldApp/target/helloworldApp.war:/usr/local/tomcat/webapps/helloworldApp.war
+      
+  mysql:
+    build:
+      context: .
+      dockerfile: dockerfile_mysql
+    container_name: mysql_container
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+
+volumes:
+  mysql_data:
+

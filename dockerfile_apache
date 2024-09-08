@@ -1,15 +1,15 @@
 # Apacheイメージのベースとして公式のhttpdイメージを使用
 FROM httpd:2.4
 
-# サーバー設定ファイルを追加
-# COPY ./my-httpd.conf /usr/local/apache2/conf/httpd.conf
+# mod_proxy_ajpモジュールを有効化
+RUN apt-get update && apt-get install -y apache2-utils && \
+    sed -i '/#LoadModule proxy_ajp_module/s/^#//' /usr/local/apache2/conf/httpd.conf
 
-# ドキュメントルートにコンテンツを追加
-# COPY ./public-html/ /usr/local/apache2/htdocs/
+# サーバー設定ファイルを追加
+COPY ./apache/httpd_local.conf /usr/local/apache2/conf/httpd.conf
 
 # ポート80を公開
 EXPOSE 80
 
 # Apacheを起動
 CMD ["httpd-foreground"]
-
