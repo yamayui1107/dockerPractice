@@ -32,8 +32,6 @@
 docker-compose -f docker-compose_all.yml up -d --build
 
 
-
-
 ----dockerfile単体で扱いたい場合（多分使わなくてOK）----
 #image作成
 docker build -t my-apache-app -f dockerfile_apache .

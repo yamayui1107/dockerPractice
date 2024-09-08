@@ -1,14 +1,28 @@
 # Tomcatイメージのベースとして公式のTomcatイメージを使用
-FROM tomcat:9.0
+FROM tomcat:8.0
 
 # AJPコネクタを有効にするための設定ファイルをコピー
 COPY ./tomcat/server_local.xml /usr/local/tomcat/conf/server.xml
 
-# アプリケーションをコンテナにコピー
-COPY ./tomcat/application/HelloWorldApp/target/helloworldApp.war /usr/local/tomcat/webapps/
+# 作業ディレクトリを設定
+WORKDIR /app
 
-# ポート8080と8009(AJP用)を公開
-EXPOSE 8009
+# ソースコードをコピー
+#COPY ./tomcat/application/dockerPracticeProject /app
+
+# application.properties(DB接続情報)をコピー
+#COPY ./tomcat/application.properties /app/src/main/resources/application.properties
+
+# アプリケーションのビルド
+#RUN ./mvnw clean package
+
+# ビルドされた WAR ファイルを Tomcat の webapps ディレクトリにコピー
+#RUN cp /app/target/dockerPracticeProject.war /usr/local/tomcat/webapps/
+#COPY ./tomcat/application/HelloWorldApp/target/helloworldApp.war /usr/local/tomcat/webapps/
+COPY ./tomcat/application/dockerPracticeProject/target/dockerPracticeProject.war /usr/local/tomcat/webapps/
+
+# ポート8009(AJP用)を公開
+EXPOSE 8009 8080
 
 # Tomcatを起動
 CMD ["catalina.sh", "run"]

@@ -8,6 +8,6 @@ services:
     container_name: tomcat_container
     ports:
       - "8009:8009"
+      - "8080:8080"
     volumes:
       - ./tomcat/server_local.xml:/usr/local/tomcat/conf/server.xml
-      - ./tomcat/application/HelloWorldApp/target/helloworldApp.war:/usr/local/tomcat/webapps/helloworldApp.war
