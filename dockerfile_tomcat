@@ -1,5 +1,5 @@
 # Tomcatイメージのベースとして公式のTomcatイメージを使用
-FROM tomcat:8.0
+FROM tomcat:10.1.28
 
 # AJPコネクタを有効にするための設定ファイルをコピー
 COPY ./tomcat/server_local.xml /usr/local/tomcat/conf/server.xml

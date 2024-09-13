@@ -1,21 +1,21 @@
 ---apache---
-  #mysqlのimageを作成し、コンテナを起動する
+  #apacheのimageを作成し、コンテナを起動する
   docker-compose -f docker-compose_apache.yml up -d --build
 
-  #mysqlのコンテナを起動する
+  #apacheのコンテナを起動する
   docker-compose -f docker-compose_apache.yml up -d
 
-  #mysqlのimageを作成し、コンテナを停止する
+  #apacheのimageを作成し、コンテナを停止する
   docker-compose -f docker-compose_apache.yml down
 
 ---tomcat---
-  #mysqlのimageを作成し、コンテナを起動する
+  #tomcatのimageを作成し、コンテナを起動する
   docker-compose -f docker-compose_tomcat.yml up -d --build
 
-  #mysqlのコンテナを起動する
+  #tomcatのコンテナを起動する
   docker-compose -f docker-compose_tomcat.yml up -d
 
-  #mysqlのimageを作成し、コンテナを停止する
+  #tomcatのimageを作成し、コンテナを停止する
   docker-compose -f docker-compose_mysql.yml down
 
 ---mysql---
